@@ -1,0 +1,2 @@
+graft mirimailtool/templates
+global-exclude *.pyc
