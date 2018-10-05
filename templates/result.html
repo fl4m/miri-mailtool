@@ -39,8 +39,12 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label for="ta-result">Neue E-Mail Adressen:</label>
-                    <textarea class="form-control" rows="5" readonly>{{
+                    <label for="ta-result">Neue E-Mail Adressen: &emsp;
+                        <button class="btn btn-outline-primary btn-sm" onclick="copy(this)"
+                         style="transition: 1s;">
+                            Kopieren
+                        </button></label>
+                    <textarea class="form-control" id="ta-result" rows="5" readonly>{{
                         addrs | join('; ')
                     }}</textarea>
                 </div>
@@ -53,4 +57,20 @@
             <a href="" class="btn btn-success btn-lg btn-block">Neue Anfrage</a>
         </div>
     </div>
+    
+    
+    <script type="text/javascript">
+        const copy = function(el){
+            const ta = document.getElementById('ta-result');
+            ta.select();
+            document.execCommand('copy');
+            ta.selectionStart = ta.selectionEnd;
+            ta.blur();
+            
+            el.innerHTML = "&#x2713;&ensp;Kopiert";
+            el.classList.remove('btn-outline-primary');
+            el.classList.add('btn-outline-success');
+            el.disabled=true;
+        }
+    </script>
 {% endblock %}
