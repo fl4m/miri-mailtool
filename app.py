@@ -16,7 +16,7 @@ def result():
     old = request.form['old-addr']
     new = request.form['new-addr']
 
-    addrs, stats = filter_addresses(new, old)
+    addrs, stats = filter_addresses(old, new)
         
     return render_template('result.html', addrs=addrs, stats=stats)
     
