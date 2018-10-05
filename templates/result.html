@@ -1,0 +1,56 @@
+{% extends "default.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+        {% if stats.res.count %}
+            <div class="alert alert-success">
+                Es wurden <strong>{{ stats.res.count }} neue</strong> E-Mail Adressen
+                gefunden.
+            </div>
+        {% else %}
+            <div class="alert alert-warning">
+                Es wurden keine neuen E-Mail Adressen gefunden.
+            </div>
+        {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered">
+                <tr>
+                    <th scope="row" class="table-active">2017</th>
+                    <td>{{stats.old.count}} Adressen, {{stats.old.dup}} Duplikate/Ungültig</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="table-active">Älter</th>
+                    <td>{{stats.new.count}} Adressen, {{stats.new.dup}} Duplikate/Ungültig</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="table-active">&rArr;</th>
+                    <td>{{stats.res.count}} neue Adressen</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    {% if addrs %}
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="ta-result">Neue E-Mail Adressen:</label>
+                    <textarea class="form-control" rows="5" readonly>{{
+                        addrs | join('; ')
+                    }}</textarea>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
+    <div class="row justify-content-end">
+        <div class="col-4">
+            <a href="" class="btn btn-success btn-lg btn-block">Neue Anfrage</a>
+        </div>
+    </div>
+{% endblock %}

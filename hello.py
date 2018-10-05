@@ -16,10 +16,8 @@ def hello():
     old = request.form['old-addr']
     new = request.form['new-addr']
 
-    addrs = filter_addresses(new, old)
-    if addrs is None:
-        addrs = set()
+    addrs, stats = filter_addresses(new, old)
         
-    return pformat(addrs, indent=4)
+    return render_template('result.html', addrs=addrs, stats=stats)
     
     
