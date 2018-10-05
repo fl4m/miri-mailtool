@@ -2,29 +2,35 @@ import re
 
 EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
 
-def filter_addresses(new_str, old_str, sep=';'):
+def filter_addresses(addr_str, remove_str='', sep=';'):
     """
     Email address filtering.
     
-    Each valid email address which exists in the 'old' list but not in the 'new'
-    is returned. Duplicates are removed.
+    Each valid email address from the list which isn't in the remove list is
+    returned. Duplicates are removed.
+    Additionally, statistics are generated to show the number of addresses and
+    duplicates in each field.
     """
-    old = old_str.split(sep)
-    if old == ['']: old = []
+    addr_list = addr_str.split(sep)
+    if addr_list == ['']: addr_list = []
     
-    new = new_str.split(sep)
-    if new == ['']: new = []
+    remove_list = remove_str.split(sep)
+    if remove_list == ['']: remove_list = []
     
-    new_set = {addr.strip() for addr in new if EMAIL_REGEX.match(addr)}
-    ret_set = {addr.strip() for addr in old if EMAIL_REGEX.match(addr)}
+    remove_set = {
+        addr.strip() for addr in remove_list if EMAIL_REGEX.match(addr)
+    }
+    addr_set = {
+        addr.strip() for addr in addr_list if EMAIL_REGEX.match(addr)
+    }
     
-    stats = { \
-        'old': {'count': len(ret_set), 'dup': len(old)-len(ret_set)}, \
-        'new': {'count': len(new_set), 'dup': len(new)-len(new_set)}, \
-        'res': {'count': 0} \
+    stats = { 
+        'addrs': {'count': len(addr_set), 'dup': len(addr_list)-len(addr_set)}, 
+        'remove': {'count': len(remove_set), 'dup': len(remove_list)-len(remove_set)}, 
+        'res': {'count': 0} 
     }
 
-    ret_set -= new_set
-    stats['res']['count'] = len(ret_set)
+    addr_set -= remove_set
+    stats['res']['count'] = len(addr_set)
     
-    return (ret_set, stats)
+    return (addr_set, stats)
