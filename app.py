@@ -11,7 +11,7 @@ def index():
     return render_template('index.html')
     
 @app.route('/', methods=['POST'])
-def hello():
+def result():
     """Filters the submitted addresses and displays the result."""
     old = request.form['old-addr']
     new = request.form['new-addr']
