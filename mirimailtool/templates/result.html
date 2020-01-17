@@ -3,16 +3,16 @@
 {% block content %}
     <div class="row">
         <div class="col">
-        {% if stats.res.count %}
-            <div class="alert alert-success">
-                Es wurden <strong>{{ stats.res.count }} </strong> E-Mail Adressen
-                gefunden.
-            </div>
-        {% else %}
-            <div class="alert alert-warning">
-                Es wurden keine E-Mail Adressen gefunden.
-            </div>
-        {% endif %}
+            {% if stats.res.count %}
+                <div class="alert alert-success">
+                    Es wurden <strong>{{ stats.res.count }} </strong> E-Mail Adressen
+                    gefunden.
+                </div>
+            {% else %}
+                <div class="alert alert-warning">
+                    Es wurden keine E-Mail Adressen gefunden.
+                </div>
+            {% endif %}
         </div>
     </div>
 
@@ -21,52 +21,64 @@
             <table class="table table-bordered">
                 <tr>
                     <th scope="row" class="table-active">Gesamt</th>
-                    <td>{{stats.addrs.count}} Adressen, {{stats.addrs.dup}} Duplikate/Ungültig</td>
-                </tr>
-                <tr>
-                    <th scope="row" class="table-active">&rArr;</th>
-                    <td>{{stats.res.count}} neue Adressen</td>
+                    <td>{{ stats.addrs.count }} Adressen, {{ stats.addrs.dup }} Duplikate/Ungültig</td>
                 </tr>
             </table>
         </div>
     </div>
-    
-    {% if addrs %}
+
+    <form method="post">
+        {% if addrs %}
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="ta-result">E-Mail Adressen: &emsp;
+                            <button class="btn btn-outline-primary btn-sm" onclick="copy(this)"
+                                    style="transition: 1s;">
+                                Kopieren
+                            </button>
+                        </label>
+                        <textarea class="form-control" id="ta-result" rows="5" name="old-addr"
+                                  readonly>{{ addrs | join('; ') }}</textarea>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label for="ta-result">Neue E-Mail Adressen: &emsp;
-                        <button class="btn btn-outline-primary btn-sm" onclick="copy(this)"
-                         style="transition: 1s;">
-                            Kopieren
-                        </button></label>
-                    <textarea class="form-control" id="ta-result" rows="5" readonly>{{
-                        addrs | join('; ')
-                    }}</textarea>
+                    <label for="ta-new">Weitere Adressen hinzufügen</label>
+                    <textarea class="form-control" id="ta-new" name="new-addr" rows="5"
+                              placeholder="test@test.com; a.b@c.de; &hellip;"></textarea>
                 </div>
             </div>
         </div>
-    {% endif %}
-    
-    <div class="row justify-content-end">
-        <div class="col-4">
-            <a href="" class="btn btn-success btn-lg btn-block">Neue Anfrage</a>
+
+        <div class="row">
+            <div class="col-4">
+                <a href="" class="btn btn-outline-success btn-lg btn-block">Neue Anfrage</a>
+            </div>
+            <div class="col-4">
+                <input type="submit" value="Weitere Adressen hinzufügen"
+                    class="btn btn-primary btn-lg btn-block" />
+            </div>
         </div>
-    </div>
-    
-    
+    </form>
+
+
     <script type="text/javascript">
-        const copy = function(el){
+        const copy = function (el) {
             const ta = document.getElementById('ta-result');
             ta.select();
             document.execCommand('copy');
             ta.selectionStart = ta.selectionEnd;
             ta.blur();
-            
+
             el.innerHTML = "&#x2713;&ensp;Kopiert";
             el.classList.remove('btn-outline-primary');
             el.classList.add('btn-outline-success');
-            el.disabled=true;
+            el.disabled = true;
         }
     </script>
 {% endblock %}

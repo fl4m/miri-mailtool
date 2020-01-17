@@ -42,6 +42,8 @@ def union_addresses(addr_str, join_str='', sep=';'):
     Filter duplicates.
     """
 
-    addr_str += sep + join_str;
+    if (len(join_str) > 0):
+        addr_str += sep + join_str;
+
     return filter_addresses(addr_str, sep=sep)
     
