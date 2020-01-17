@@ -9,4 +9,10 @@ setup(
     install_requires=[
         'flask',
     ],
+    tests_requires=[
+        'pytest',
+    ],
+    setup_requires=[
+        'pytest-runner',
+    ],
 )

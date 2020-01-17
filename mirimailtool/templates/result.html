@@ -5,12 +5,12 @@
         <div class="col">
         {% if stats.res.count %}
             <div class="alert alert-success">
-                Es wurden <strong>{{ stats.res.count }} neue</strong> E-Mail Adressen
+                Es wurden <strong>{{ stats.res.count }} </strong> E-Mail Adressen
                 gefunden.
             </div>
         {% else %}
             <div class="alert alert-warning">
-                Es wurden keine neuen E-Mail Adressen gefunden.
+                Es wurden keine E-Mail Adressen gefunden.
             </div>
         {% endif %}
         </div>
@@ -20,11 +20,7 @@
         <div class="col">
             <table class="table table-bordered">
                 <tr>
-                    <th scope="row" class="table-active">2017</th>
-                    <td>{{stats.remove.count}} Adressen, {{stats.remove.dup}} Duplikate/Ungültig</td>
-                </tr>
-                <tr>
-                    <th scope="row" class="table-active">Älter</th>
+                    <th scope="row" class="table-active">Gesamt</th>
                     <td>{{stats.addrs.count}} Adressen, {{stats.addrs.dup}} Duplikate/Ungültig</td>
                 </tr>
                 <tr>

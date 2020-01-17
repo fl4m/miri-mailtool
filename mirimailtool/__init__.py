@@ -2,7 +2,8 @@ from flask import Flask, render_template, request
 from pprint import pformat
 import os
 
-from mirimailtool.util import filter_addresses
+from mirimailtool.util import filter_addresses, union_addresses
+
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -32,8 +33,9 @@ def create_app(test_config=None):
         old = request.form['old-addr']
         new = request.form['new-addr']
 
-        addrs, stats = filter_addresses(old, new)
-            
+        #addrs, stats = filter_addresses(old, new)
+        addrs, stats = union_addresses(old, new)
+
         return render_template('result.html', addrs=addrs, stats=stats)
         
     return app

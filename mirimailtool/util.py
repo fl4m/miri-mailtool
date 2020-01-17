@@ -32,5 +32,16 @@ def filter_addresses(addr_str, remove_str='', sep=';'):
 
     addr_set -= remove_set
     stats['res']['count'] = len(addr_set)
-    
     return (addr_set, stats)
+
+def union_addresses(addr_str, join_str='', sep=';'):
+    """
+    Email address union
+
+    Joins two lists of addresses.
+    Filter duplicates.
+    """
+
+    addr_str += sep + join_str;
+    return filter_addresses(addr_str, sep=sep)
+    
